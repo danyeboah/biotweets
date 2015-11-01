@@ -1,0 +1,32 @@
+<div class = 'row'>
+  <div class = 'well span8'>
+    <%= render @post.categories %>
+    <h5 class = 'lead'> <%= @post.title %> </h5> 
+    <hr/>
+  <p><%= @post.description %> </p>
+    <% if logged_in? && current_user.is_creator?(@post) %>
+    <small> <%= link_to 'Edit Post', edit_post_path(@post) %> </small>
+    <% end %>
+ </div>
+</div>
+
+<hr/>
+
+<%= render 'shared/posterror', object:@comment %>
+
+<% if logged_in? %>
+  <%= form_for [@post,@comment] do |f| %>
+    <%= f.label "Post a comment", class: 'whiten' %>
+    <%= f.text_area :body %> <br/>
+    <%= f.submit "Leave comment", class: "btn btn-primary" %>
+  <% end %>
+ 
+  <% else %>
+  <p class = 'whiten'> Please log in to leave a comment </p> 
+<% end %>
+<br/>
+
+<h4 class = 'lead whiten'> Comments </h4> <hr/>
+<% @post.comments.each do |comment| %>
+  <%= render 'comments/comments', comment: comment, show_post: false %>
+<% end %>

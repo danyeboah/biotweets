@@ -1,0 +1,30 @@
+<div class = 'row'>
+  <div class = 'span0 well text-center'>
+     <%= link_to vote_post_path(post, vote: true), method: 'post', remote: true do %>
+      <i class = 'icon-thumbs-up'></i>
+      <% end %>
+
+  <br/>
+  <br/>
+    <span id = "post_<%=post.slug%>"> <%= pluralize(post.vote_popular, 'like') %> </span>
+  <br/> 
+  <br/>
+
+    <%= link_to vote_post_path(post, vote: false), method: 'post', remote: true do %>
+    <i class = 'icon-thumbs-down'></i>
+    <% end %>
+  </div>
+
+  <div class = 'span8 well'>
+    <%= render post.categories %>
+    
+    <h4><%= link_to post.title, post_path(post) %> </h4>
+    <hr/>
+    <p><%= post.description %> </p>
+    <span class = 'quiet'> posted by </span> <%= link_to "#{post.user.username}", user_path(post.user) %>
+    <small> at <%= display_datetime(post.created_at) %> </small>
+    <p>
+      <%= link_to pluralize(post.comments.size, "comment"), post_path(post) %>
+    </p>
+  </div>
+</div>

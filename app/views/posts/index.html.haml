@@ -1,0 +1,24 @@
+%p.in_works
+  BioTweets is still in the works
+%h2.header.whiten 
+  Welcome To BioTweets
+%h4.header.whiten 
+  Let's talk Science!!!
+%hr
+
+
+= render 'shared/header', title: 'Posts'
+
+-if logged_in?
+  %p 
+    = link_to new_post_path do
+      %button.btn.btn-success 
+        %i.icon-plus 
+        New Post
+
+
+
+-@posts.each do |post|
+  = render 'post', post: post
+
+
